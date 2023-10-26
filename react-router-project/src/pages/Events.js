@@ -31,7 +31,8 @@ function EventsPage() {
   // * returns the data from the promise in loader
   //todo: Loader will only work if the components are on the same level or if the component is at a lower level than the one from where data is fetched
   //! Parent component/page cannot load data from a child component
-  const events = useLoaderData();
+  const data = useLoaderData();
+  const events = data.events;
 
   return <EventsList events={events} />;
 
@@ -45,14 +46,13 @@ function EventsPage() {
 }
 
 export default EventsPage;
-
+// We cannot use react hooks in loaders, but default browser feature can be used
 export async function loader() {
   const response = await fetch("http://localhost:8080/events");
 
   if (!response.ok) {
     // TODO: incorrect response case
   } else {
-    const resData = await response.json();
-    return resData.events;
+    return response;
   }
 }
