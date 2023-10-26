@@ -32,6 +32,9 @@ function EventsPage() {
   //todo: Loader will only work if the components are on the same level or if the component is at a lower level than the one from where data is fetched
   //! Parent component/page cannot load data from a child component
   const data = useLoaderData();
+  if (data.isError) {
+    <p>{data.message}</p>;
+  }
   const events = data.events;
 
   return <EventsList events={events} />;
@@ -52,6 +55,11 @@ export async function loader() {
 
   if (!response.ok) {
     // TODO: incorrect response case
+    //return { isError: true, message: "Could not fetch events." };
+
+    throw new Response(JSON.stringify({ message: "Could not fetch events" }), {
+      status: 500,
+    });
   } else {
     return response;
   }
