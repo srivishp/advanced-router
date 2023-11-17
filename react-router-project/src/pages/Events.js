@@ -29,8 +29,8 @@ function EventsPage() {
   // }, []);
 
   // * returns the data from the promise in loader
-  //todo: Loader will only work if the components are on the same level or if the component is at a lower level than the one from where data is fetched
-  //! Parent component/page cannot load data from a child component
+  //? Loader will only work if the components are on the same level or if the component is at a lower level than the one from where data is fetched
+  //-> Parent component/page cannot load data from a child component
   const { events } = useLoaderData();
 
   return (
@@ -60,7 +60,7 @@ async function loadEvents() {
   const response = await fetch("http://localhost:8080/events");
 
   if (!response.ok) {
-    // TODO: incorrect response case
+    // # incorrect response case
     //return { isError: true, message: "Could not fetch events." };
 
     // throw new Response(JSON.stringify({ message: "Could not fetch events" }), {
